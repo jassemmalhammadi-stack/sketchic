@@ -7,7 +7,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Tajawal:wght@400;700;900&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,9 +23,9 @@
         </div>
         <ul class="nav-links">
             <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#manifesto">البيان</a></li>
             <li><a href="#characters">الشخصيات</a></li>
             <li><a href="#timeline">الخط الزمني</a></li>
-            <li><a href="#lore">القصص</a></li>
         </ul>
         <div class="hamburger">
             <span></span>
@@ -41,24 +41,43 @@
                 WHERE <span class="highlight-cyan">IMAGINATION</span><br>
                 CREATES <span class="highlight-purple">REALITY</span>
             </h1>
-            <p class="hero-subtitle">ادخل إلى عالم خيالي يولد من قطرات الحبر ويتجسد في لوحات فنية ومغامرات ملحمية.</p>
+            <p class="hero-subtitle">الكون مسودة.. وأنت تمسك القلم. ادخل إلى عالم خيالي يولد من قطرات الحبر ويتجسد في لوحات فنية ومغامرات ملحمية.</p>
             <div class="hero-buttons">
-                <a href="#explore" class="btn primary-btn">استكشف العالم</a>
-                <a href="#lore" class="btn secondary-btn">اقرأ القصص</a>
+                <a href="#characters" class="btn primary-btn">استكشف الشخصيات</a>
+                <a href="#manifesto" class="btn secondary-btn">اقرأ البيان</a>
             </div>
         </div>
         <div class="hero-art">
-            <div class="glowing-orb"></div>
+            <div class="logo-glow-wrapper">
+                <img src="sketchic_logo.png" alt="Sketchic Logo" class="hero-logo-img">
+            </div>
             <div class="floating-sketch-elements">
                 <!-- Abstract floating sketch/ink shapes managed via CSS -->
             </div>
         </div>
     </header>
 
+    <!-- Manifesto Section (Sketch Paper Style) -->
+    <section id="manifesto" class="manifesto-section">
+        <div class="manifesto-paper">
+            <div class="tape tape-top-left"></div>
+            <div class="tape tape-top-right"></div>
+            <div class="paper-content">
+                <h2>بيان "المخطط" (The Blueprint Manifesto)</h2>
+                <p class="manifesto-lead">نحن لا نؤمن بالواقع كما هو، بل كما يمكن أن يُرسم.</p>
+                <p>
+                    في <strong>Sketchic</strong>، الحقيقة ليست صلبة، بل هي مجموعة من الخطوط القابلة لإعادة التشكيل. 
+                    البطل الأول "الرسام" بدأ برسم المخطط، والآن الدور عليك لتضع بصمتك في هذا العالم.
+                </p>
+                <p class="manifesto-quote">"كل خط ترسمه هو حياة جديدة تبدأ."</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Characters Section (Sketchbook Style) -->
     <section id="characters" class="characters-section">
         <div class="section-header">
-            <h2 class="section-title">الشخصيات</h2>
+            <h2 class="section-title">الشخصيات (The Drafts)</h2>
             <div class="ink-line"></div>
         </div>
         <div class="character-grid">
@@ -66,13 +85,12 @@
             <div class="char-card">
                 <div class="card-image-wrapper">
                     <div class="sketch-overlay"></div>
-                    <!-- Placeholder color/gradient for character image -->
                     <div class="placeholder-img c1"></div>
                 </div>
                 <div class="card-info">
                     <h3>الرسام (The Artist)</h3>
                     <p class="role">المبدع الأول</p>
-                    <p class="desc">يحمل قلماً قادراً على تشكيل الواقع. يداه ملطختان دائماً بالحبر السحري.</p>
+                    <p class="desc">يحمل قلماً قادراً على تشكيل الواقع. يداه ملطختان دائماً بالحبر السحري، وملامحه تعكس تعب الخلق والابتكار.</p>
                 </div>
             </div>
             <!-- Character Card 2 -->
@@ -84,7 +102,7 @@
                 <div class="card-info">
                     <h3>عين الظل (Shadow Eye)</h3>
                     <p class="role">مراقب الأبعاد</p>
-                    <p class="desc">كيان يراقب من خلال بوابات الحبر الداكن، يرى كل خط مرسوم في العالم.</p>
+                    <p class="desc">كيان يراقب من خلال بوابات الحبر الداكن السائل، يرى كل خط مرسوم وكل فكرة تولد في هذا الكون.</p>
                 </div>
             </div>
             <!-- Character Card 3 -->
@@ -96,7 +114,7 @@
                 <div class="card-info">
                     <h3>فارس النيون (Neon Knight)</h3>
                     <p class="role">حامي المجرات المكتوبة</p>
-                    <p class="desc">درعه مصنوع من طاقة نقية، يدافع عن المدن الفضائية التي تم تخيلها.</p>
+                    <p class="desc">درع من خطوط الطاقة الزرقاء والبنفسجية المتوهجة، يدافع عن الحدود التي تفصل الواقع عن المسودات غير المكتملة.</p>
                 </div>
             </div>
         </div>
@@ -115,7 +133,7 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content glass-panel">
                     <h3>القطرة الأولى (The First Drop)</h3>
-                    <p>سقوط قطرة الحبر السحري على الورقة البيضاء العظمى، وبداية تشكل الكون.</p>
+                    <p>سقوط قطرة الحبر السحري على الورقة البيضاء العظمى، وبداية تشكل الكون كمسودة أولى.</p>
                 </div>
             </div>
             
@@ -123,15 +141,15 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content glass-panel">
                     <h3>عصر الرسوم الأولية (Era of Sketches)</h3>
-                    <p>تشكلت الكيانات الأولى بشكل غير مكتمل، خطوط متداخلة وأفكار غير مكتملة تبحث عن المعنى.</p>
+                    <p>تشكل الكيانات الأولى بشكل غير مكتمل، خطوط متداخلة وأفكار غير مكتملة تبحث عن المعنى والتفاصيل.</p>
                 </div>
             </div>
 
             <div class="timeline-item left">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content glass-panel">
-                    <h3>صحوة الألوان (Awakening of Colors)</h3>
-                    <p>اكتشاف النيون والطاقة، مما أعطى الحياة والتفاصيل الدقيقة للعوالم والمدن المترامية.</p>
+                    <h3>صحوة الألوان والنيون (Awakening of Neon)</h3>
+                    <p>دخول طاقة الألوان الساطعة، مما بث الروح والتفاصيل الفائقة في العوالم والمدن المكتوبة لتتحول من مجرد مسودة إلى واقع نيون نابض.</p>
                 </div>
             </div>
         </div>
