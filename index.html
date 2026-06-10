@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="البوابة الرسمية لأصول كون سكتشيك السينمائي - استكشف الفصول والميثاق البصري وعوالم الرسم المتباينة.">
+    <title>Sketchic Universe - بوابة أصول الكون السينمائي</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific tweaks for public view to make it look even more premium */
+        body {
+            background-color: var(--bg-primary);
+        }
+        .portal-outer-frame {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
+        .portal-header-public {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            padding: 0.8rem 1.5rem;
+        }
+        .public-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .public-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .public-logo img {
+            height: 45px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        .public-logo-text h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .public-logo-text span {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            display: block;
+            margin-top: -2px;
+        }
+        .public-main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Public Header -->
+    <header class="portal-header-public">
+        <div class="public-container">
+            <div class="public-logo">
+                <img src="logo.jpg" alt="Sketchic Logo">
+                <div class="public-logo-text">
+                    <h1>سكتشيك</h1>
+                    <span>بوابة أصول الكون السينمائي الرسمية</span>
+                </div>
+            </div>
+            <div>
+                <span style="font-size: 0.85rem; font-weight: 700; color: var(--color-accent); background-color: var(--color-accent-light); padding: 6px 12px; border-radius: var(--radius-md);">البوابة العامة للجمهور</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Public Main Showcase -->
+    <main class="public-main">
+        <div class="portal-outer-frame" id="portal-frame">
+            <!-- Loading state -->
+            <div style="text-align: center; padding: 5rem 2rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem; animation: pulse 1.5s infinite; display: inline-block;">⏳</div>
+                <h3>جاري تحميل بوابة أصول سكتشيك...</h3>
+                <p style="color: var(--text-tertiary); margin-top: 5px;">يتم جلب أحدث الأصول الفنية والسيناريوهات المعتمدة من خوادم النشر.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="portal.js"></script>
+</body>
+</html>
