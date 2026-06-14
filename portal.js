@@ -36,9 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Filter out finished assets (just in case)
         const finishedAssets = assets.filter(a => a.status === 'finished');
         
+        const sources = finishedAssets.filter(a => a.type === 'source');
         const creators = finishedAssets.filter(a => a.type === 'creator');
         const scenarios = finishedAssets.filter(a => a.type === 'scenario');
         const characters = finishedAssets.filter(a => a.type === 'character');
+        const voices = finishedAssets.filter(a => a.type === 'voice');
+        const musics = finishedAssets.filter(a => a.type === 'music');
         const comics = finishedAssets.filter(a => a.type === 'comic');
         const videos = finishedAssets.filter(a => a.type === 'video');
         const games = finishedAssets.filter(a => a.type === 'game');
@@ -137,12 +140,122 @@ document.addEventListener('DOMContentLoaded', () => {
             charsHtml = `<p class="portal-empty-state" style="padding:1rem;width:100%;">لم يتم إضافة أي شخصيات منتهية لعرضها بعد.</p>`;
         }
 
+        // Generate Voices Profiles HTML
+        let voicesHtml = "";
+        if (voices.length > 0) {
+            voices.forEach(v => {
+                let charText = "";
+                if (v.relatedCharacters && v.relatedCharacters.length > 0) {
+                    const chr = finishedAssets.find(a => a.id === v.relatedCharacters[0]) || assets.find(a => a.id === v.relatedCharacters[0]);
+                    if (chr) {
+                        charText = `صوت الشخصية: ${chr.title}`;
+                    }
+                }
+                const engine = v.subOptions ? (v.subOptions.voiceEngine || "gemini-3.1-flash-tts-preview") : "gemini-3.1-flash-tts-preview";
+                const speaker = v.subOptions ? (v.subOptions.voiceSpeaker || "Algenib") : "Algenib";
+                const scene = v.subOptions ? (v.subOptions.voiceScene || "") : "";
+                
+                voicesHtml += `
+                    <div class="portal-card" style="border-top: 4px solid var(--color-accent); background: linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%);">
+                        <div class="portal-card-body">
+                            <span class="portal-card-meta" style="color:var(--color-accent); font-weight:700;">🎙️ صوت كوني (Voice Profile)</span>
+                            <h4 style="margin: 10px 0 5px 0; font-size:1.2rem;">${v.title}</h4>
+                            ${charText ? `<span style="font-size:0.75rem; color:var(--text-secondary); font-weight:700; margin-bottom:4px; display:block;">👤 ${charText}</span>` : ''}
+                            <div style="font-size:0.75rem; color:var(--color-accent); margin-bottom: 10px;">
+                                <span>🤖 المحرك: ${engine}</span><br>
+                                <span style="margin-top:2px; display:inline-block;">🔊 المتحدث: ${speaker}</span>
+                                ${scene ? `<br><span style="margin-top:2px; display:inline-block;">🎬 المشهد: ${scene}</span>` : ''}
+                            </div>
+                            <p style="font-size:0.8rem; line-height:1.5; color:var(--text-secondary);">${v.desc}</p>
+                            <div class="portal-card-action">
+                                <a href="${v.driveUrl}" target="_blank" class="portal-btn portal-btn-outline" style="border-color:var(--color-accent); color:var(--color-accent);">استماع للملف الصوتي</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Generate Music Profiles HTML
+        let musicsHtml = "";
+        if (musics.length > 0) {
+            musics.forEach(m => {
+                let scenarioText = "";
+                if (m.relatedScenario) {
+                    const sc = finishedAssets.find(a => a.id === m.relatedScenario) || assets.find(a => a.id === m.relatedScenario);
+                    if (sc) {
+                        scenarioText = `مرتبط بسيناريو: ${sc.title}`;
+                    }
+                }
+                const engine = m.subOptions ? (m.subOptions.musicEngine || "Suno AI") : "Suno AI";
+                const genre = m.subOptions ? (m.subOptions.musicGenre || "أوركسترا كوني") : "أوركسترا كوني";
+                const tempo = m.subOptions ? (m.subOptions.musicTempo || "متوسط") : "متوسط";
+                const instruments = m.subOptions ? (m.subOptions.musicInstruments || "أوتار وهارب") : "أوتار وهارب";
+                
+                musicsHtml += `
+                    <div class="portal-card" style="border-top: 4px solid var(--color-cyan); background: linear-gradient(180deg, #ffffff 0%, #ecfeff 100%);">
+                        <div class="portal-card-body">
+                            <span class="portal-card-meta" style="color:var(--color-cyan); font-weight:700;">🎵 موسيقى كونيّة (Music Profile)</span>
+                            <h4 style="margin: 10px 0 5px 0; font-size:1.2rem;">${m.title}</h4>
+                            ${scenarioText ? `<span style="font-size:0.75rem; color:var(--text-secondary); font-weight:700; margin-bottom:4px; display:block;">📖 ${scenarioText}</span>` : ''}
+                            <div style="font-size:0.75rem; color:var(--color-cyan); margin-bottom: 10px;">
+                                <span>🤖 المحرك: ${engine}</span><br>
+                                <span style="margin-top:2px; display:inline-block;">🎼 النمط: ${genre}</span><br>
+                                <span style="margin-top:2px; display:inline-block;">⏱️ السرعة: ${tempo}</span><br>
+                                <span style="margin-top:2px; display:inline-block;">🎸 الآلات: ${instruments}</span>
+                            </div>
+                            <p style="font-size:0.8rem; line-height:1.5; color:var(--text-secondary);">${m.desc}</p>
+                            <div class="portal-card-action">
+                                <a href="${m.driveUrl}" target="_blank" class="portal-btn portal-btn-outline" style="border-color:var(--color-cyan); color:var(--color-cyan);">استماع للساوندتراك</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Generate Narrative Sources HTML
+        let sourcesHtml = "";
+        if (sources.length > 0) {
+            sources.forEach(s => {
+                const sourceType = s.subOptions ? (s.subOptions.sourceType || "رواية كوكبية طويلة") : "رواية كوكبية طويلة";
+                const author = s.subOptions ? (s.subOptions.sourceAuthor || "الكاتب الكوني الأول") : "الكاتب الكوني الأول";
+                const wordCount = s.subOptions ? (s.subOptions.sourceWordCount || "0") : "0";
+                
+                sourcesHtml += `
+                    <div class="portal-card" style="border-top: 4px solid #10b981; background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);">
+                        <div class="portal-card-body">
+                            <span class="portal-card-meta" style="color:#047857; font-weight:700;">📖 مصدر سردي (Source Material)</span>
+                            <h4 style="margin: 10px 0 5px 0; font-size:1.2rem;">${s.title}</h4>
+                            <div style="font-size:0.75rem; color:#059669; margin-bottom: 10px;">
+                                <span>📖 النوع: ${sourceType}</span><br>
+                                <span style="margin-top:2px; display:inline-block;">✍️ المؤلف: ${author}</span><br>
+                                <span style="margin-top:2px; display:inline-block;">📊 الحجم: ${wordCount} كلمة</span>
+                            </div>
+                            <p style="font-size:0.8rem; line-height:1.5; color:#065f46;">${s.desc}</p>
+                            <div class="portal-card-action">
+                                <a href="${s.driveUrl}" target="_blank" class="portal-btn portal-btn-outline" style="border-color:#10b981; color:#10b981;">قراءة المصدر الأصلي</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
         // Generate Scenarios / Lore
         let scenariosHtml = "";
         if (scenarios.length > 0) {
             scenarios.forEach(s => {
                 let layerText = s.subOptions ? (s.subOptions.parallelLayer || "Layer 1") : "Layer 1";
                 let fpsText = s.subOptions ? (s.subOptions.framerate || "24fps") : "24fps";
+                
+                let sourceLinkHtml = "";
+                if (s.relatedSource) {
+                    const src = finishedAssets.find(a => a.id === s.relatedSource) || assets.find(a => a.id === s.relatedSource);
+                    if (src) {
+                        sourceLinkHtml = `<div style="font-size:0.8rem; color:#64748b; margin: 4px 0 10px 0;">📖 مقتبس من المصدر: <a href="${src.driveUrl}" target="_blank" style="color:var(--color-cyan); text-decoration:underline; font-weight:bold;">${src.title}</a></div>`;
+                    }
+                }
                 
                 scenariosHtml += `
                     <div class="portal-card" style="grid-column: 1 / -1; border-top: 4px solid var(--color-accent)">
@@ -151,7 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="portal-card-meta">📝 سيناريو رئيسي</span>
                                 <span class="portal-card-meta" style="color:var(--color-accent); font-weight:bold;">📂 ${layerText} • ⏱️ ${fpsText}</span>
                             </div>
-                            <h4 style="font-size:1.4rem;margin:10px 0;">${s.title}</h4>
+                            <h4 style="font-size:1.4rem;margin:10px 0 5px 0;">${s.title}</h4>
+                            ${sourceLinkHtml}
                             <p>${s.desc}</p>
                             <div class="portal-card-action">
                                 <a href="${s.driveUrl}" target="_blank" class="portal-btn portal-btn-primary">قراءة السيناريو الكامل على Google Docs</a>
@@ -293,6 +407,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 ` : ''}
 
+                <!-- Finished Sources -->
+                ${sources.length > 0 ? `
+                <div class="portal-section">
+                    <div class="portal-section-header">
+                        <h3>المصادر السردية والأفكار الأصلية</h3>
+                        <span class="section-tag" style="background-color:#10b981; color:#fff;">روايات وقصص مصادر</span>
+                    </div>
+                    <div class="portal-grid">
+                        ${sourcesHtml}
+                    </div>
+                </div>
+                ` : ''}
+
                 <!-- Finished Scenarios -->
                 ${scenarios.length > 0 ? `
                 <div class="portal-section">
@@ -316,6 +443,32 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${charsHtml}
                     </div>
                 </div>
+
+                <!-- Finished Cosmic Voices -->
+                ${voices.length > 0 ? `
+                <div class="portal-section">
+                    <div class="portal-section-header">
+                        <h3>المكتبة الصوتية والأصوات التعبيرية</h3>
+                        <span class="section-tag" style="background-color:var(--color-accent); color:#fff;">أصوات ذكاء اصطناعي</span>
+                    </div>
+                    <div class="portal-grid">
+                        ${voicesHtml}
+                    </div>
+                </div>
+                ` : ''}
+
+                <!-- Finished Cosmic Music -->
+                ${musics.length > 0 ? `
+                <div class="portal-section">
+                    <div class="portal-section-header">
+                        <h3>المكتبة الموسيقية والساوندتراك</h3>
+                        <span class="section-tag" style="background-color:var(--color-cyan); color:#fff;">موسيقى وألحان كوكبية</span>
+                    </div>
+                    <div class="portal-grid">
+                        ${musicsHtml}
+                    </div>
+                </div>
+                ` : ''}
 
                 <!-- Comics Section -->
                 ${comics.length > 0 ? `
